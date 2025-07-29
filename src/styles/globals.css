@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Exemplo de customização opcional global */
+body {
+  @apply bg-yellow-50 text-gray-800;
+}
+
+a {
+  @apply transition-colors;
+}
+.hide-scrollbar::-webkit-scrollbar { display: none; }
+.hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
