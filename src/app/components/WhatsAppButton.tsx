@@ -1,8 +1,13 @@
-// WhatsappButton.tsx
+// src/app/components/WhatsappButton.tsx
 import { FaWhatsapp } from "react-icons/fa";
 
-export default function WhatsappButton({ message, className = "" }) {
-  const phone = "5511968633239"; // seu número com DDI Brasil
+type WhatsappButtonProps = {
+  message: string;
+  className?: string;
+};
+
+export default function WhatsappButton({ message, className = "" }: WhatsappButtonProps) {
+  const phone = "5511968633239";
   return (
     <a
       href={`https://wa.me/${phone}?text=${encodeURIComponent(message)}`}
