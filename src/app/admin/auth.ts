@@ -7,7 +7,8 @@ const COOKIE_NAME = process.env.ADMIN_COOKIE_NAME || "pomelia_admin";
 
 // Função para verificar se está logado
 export async function isAdmin() {
-  const value = cookies().get(COOKIE_NAME)?.value;
+const cookiesList = await cookies();
+const value = cookiesList.get(COOKIE_NAME)?.value;
   return value === "ok";
 }
 
