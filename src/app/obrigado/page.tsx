@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export const metadata = {
   title: "Obrigado pelo contato – Pomélia",
   description: "Recebemos sua mensagem. Em breve, uma consultora Pomélia irá falar com você para apresentar os filhotes de Spitz Alemão Anão disponíveis.",
@@ -12,12 +14,11 @@ export default function Obrigado() {
         <br />
         Em breve, uma consultora irá te chamar no WhatsApp para apresentar as opções exclusivas e tirar todas as suas dúvidas.
       </p>
-      <a
-        href="/"
+      <Link href="/"
         className="mt-6 bg-yellow-700 hover:bg-yellow-800 text-white px-8 py-3 rounded-xl font-bold shadow transition"
       >
         Voltar para a página inicial
-      </a>
+      </Link>
     </main>
   );
 }

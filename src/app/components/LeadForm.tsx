@@ -1,5 +1,7 @@
 "use client";
 import { useState } from "react";
+import Link from "next/link";
+
 
 export default function LeadForm() {
   const [nome, setNome] = useState('');
@@ -36,12 +38,11 @@ export default function LeadForm() {
         Em poucos minutos uma consultora Pomélia vai te chamar no WhatsApp com as opções de filhotes, fotos e valores exclusivos.
       </span>
       <div className="mt-6">
-        <a
-          href="/"
+        <Link href="/"
           className="inline-block mt-2 bg-yellow-700 hover:bg-yellow-800 text-white rounded-xl px-6 py-3 font-bold shadow transition-all"
         >
           Voltar para a página inicial
-        </a>
+        </Link>
       </div>
     </div>
   );
