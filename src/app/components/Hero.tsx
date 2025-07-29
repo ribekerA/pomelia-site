@@ -25,7 +25,7 @@ export default function Hero() {
         <p className="text-lg md:text-2xl mb-8 text-gray-800 font-medium max-w-2xl mx-auto">
           Conheça o verdadeiro significado de exclusividade, carinho e suporte vitalício. Seu filhote Pomélia vai transformar sua rotina e sua vida.
         </p>
-        <WhatsappButton />
+        <WhatsappButton message="Olá! Quero saber mais sobre os filhotes Spitz Alemão disponíveis na Pomélia." />
         <div className="mt-10 text-base md:text-lg text-gray-500 italic">
           Muitas famílias Pomélia em todo o Brasil | Entrega nacional premium
         </div>
