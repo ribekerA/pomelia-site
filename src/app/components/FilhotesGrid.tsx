@@ -1,80 +1,118 @@
 "use client";
-import { motion } from "framer-motion";
-import WhatsappButton from "../components/WhatsAppButton"; // ajuste o path conforme seu projeto
+import { useState } from "react";
+import Image from "next/image";
+import WhatsappButton from "./WhatsAppButton";
 
-// Troque pelos dados reais dos filhotes
 const filhotes = [
   {
     cor: "Branco",
-    sexo: "Macho",
-    valor: "R$ 8.900",
-    fotos: ["/images/spitz-branco.png"],
-    alt: "Filhote Spitz Alemão Anão Branco Macho disponível Pomélia",
-    whatsMsg: "Olá! Vi o filhote branco macho disponível na Pomélia e quero mais informações.",
+    sexo: "Fêmea",
+    valor: "R$ 9.500",
+    imagens: ["/images/filhotes/branco.webp", "/images/filhotes/branco2.webp"],
   },
   {
     cor: "Laranja",
-    sexo: "Fêmea",
-    valor: "R$ 9.500",
-    fotos: ["/images/spitz-laranja.png"],
-    alt: "Filhote Spitz Alemão Anão Laranja Fêmea disponível Pomélia",
-    whatsMsg: "Olá! Vi o filhote laranja fêmea disponível na Pomélia e quero mais informações.",
+    sexo: "Macho",
+    valor: "R$ 7.800",
+    imagens: ["/images/filhotes/laranja.webp", "/images/filhotes/laranja2.webp"],
   },
   {
     cor: "Preto",
     sexo: "Macho",
-    valor: "R$ 7.800",
-    fotos: ["/images/spitz-preto.png"],
-    alt: "Filhote Spitz Alemão Anão Preto Macho disponível Pomélia",
-    whatsMsg: "Olá! Vi o filhote preto macho disponível na Pomélia e quero mais informações.",
+    valor: "R$ 7.500",
+    imagens: ["/images/filhotes/preto.webp", "/images/filhotes/preto2.webp"],
   },
   {
     cor: "Creme",
     sexo: "Fêmea",
-    valor: "R$ 10.000",
-    fotos: ["/images/spitz-creme.png"],
-    alt: "Filhote Spitz Alemão Anão Creme Fêmea disponível Pomélia",
-    whatsMsg: "Olá! Vi o filhote creme fêmea disponível na Pomélia e quero mais informações.",
+    valor: "R$ 8.900",
+    imagens: ["/images/filhotes/creme.webp", "/images/filhotes/creme2.webp"],
   },
+  // Adicione mais filhotes!
 ];
 
 export default function FilhotesGrid() {
+  const [modal, setModal] = useState<{ imagens: string[]; cor: string; sexo: string; valor: string } | null>(null);
+
   return (
-    <section className="bg-yellow-50 py-12">
-      <h2 className="text-4xl md:text-5xl font-black text-center mb-12 text-yellow-800 drop-shadow">
-        Filhotes disponíveis Pomélia
+    <section className="w-full max-w-7xl mx-auto px-3 py-8">
+      <h2 className="text-3xl md:text-4xl font-extrabold text-[#3A2C1C] mb-8 text-center drop-shadow-lg">
+        Filhotes Disponíveis para Venda <span className="text-pink-700">Pomélia</span>
       </h2>
-      <div className="flex flex-wrap justify-center gap-10 md:gap-12 mb-10">
-        {filhotes.map((f, i) => (
-          <motion.div
-            key={i}
-            whileHover={{ scale: 1.04 }}
-            className="bg-white rounded-3xl shadow-2xl w-full max-w-sm md:max-w-md xl:max-w-lg flex flex-col items-center p-6 border-4 border-yellow-100 hover:border-yellow-600 transition-all cursor-pointer"
-            style={{ minHeight: "520px" }}
-          >
-            <div className="w-full aspect-[4/3] mb-6 rounded-2xl overflow-hidden shadow-lg border-2 border-yellow-200 flex items-center justify-center bg-neutral-50">
-              <img
-                src={f.fotos[0]}
-                alt={f.alt}
-                className="object-cover w-full h-full"
-                loading="lazy"
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-7">
+        {filhotes.map((f, idx) => (
+          <div key={idx} className="bg-white rounded-3xl shadow-2xl p-5 flex flex-col items-center transition-transform hover:-translate-y-2 hover:shadow-pink-200">
+            <div
+              className="relative w-full h-64 rounded-2xl overflow-hidden mb-4 cursor-pointer group"
+              onClick={() => setModal({ imagens: f.imagens, cor: f.cor, sexo: f.sexo, valor: f.valor })}
+            >
+              <Image
+                src={f.imagens[0]}
+                alt={`Filhote Spitz ${f.cor} ${f.sexo} Pomélia`}
+                fill
+                className="object-cover transition-transform group-hover:scale-105 duration-300"
+                sizes="(max-width: 768px) 100vw, 33vw"
+                priority={idx === 0}
               />
+              <div className="absolute bottom-2 right-2 bg-white bg-opacity-80 px-2 py-1 rounded-md text-xs text-pink-700 font-bold shadow">
+                Clique para ver mais fotos
+              </div>
             </div>
-            <div className="flex flex-col items-center gap-2 mb-6">
-              <span className="text-xl md:text-2xl font-black text-yellow-900">{f.cor}</span>
-              <span className="text-yellow-700 font-bold text-lg">{f.sexo}</span>
-              <span className="text-green-700 font-bold text-lg">{f.valor}</span>
+            <div className="flex flex-col items-center gap-1 mb-3">
+              <span className="font-semibold text-lg text-[#664D36]">{f.cor}</span>
+              <span className="text-pink-700 font-bold">{f.sexo}</span>
+              <span className="text-xl font-extrabold text-green-700 drop-shadow-sm">{f.valor}</span>
             </div>
             <WhatsappButton
-              message={f.whatsMsg}
-              className="mt-auto w-full"
+              message={`Olá! Vi o filhote ${f.cor} ${f.sexo} por ${f.valor} no site Pomélia. Quero saber mais!`}
+              className="w-full mt-2"
             />
-          </motion.div>
+          </div>
         ))}
       </div>
-      <div className="text-center text-yellow-800 text-lg mt-10">
-        <b>Dica:</b> Clique no filhote desejado para solicitar mais fotos, vídeos ou agendar uma visita exclusiva!
-      </div>
+        {/* Modal de galeria */}
+      {modal && (
+        <div className="fixed inset-0 z-50 bg-black bg-opacity-80 flex items-center justify-center transition-all">
+          <div className="bg-white rounded-3xl shadow-2xl p-4 md:p-6 relative w-[98vw] max-w-2xl flex flex-col items-center">
+            <button
+              onClick={() => setModal(null)}
+              className="absolute top-2 right-2 bg-pink-700 text-white p-2 rounded-full text-lg font-bold z-10"
+              aria-label="Fechar"
+            >
+              ×
+            </button>
+            <h3 className="text-xl font-bold mb-4 text-center">
+              {modal.cor} - Fotos
+            </h3>
+            <div className="flex gap-4 overflow-x-auto scrollbar-hide w-full pb-3 mb-2">
+              {modal.imagens.map((img, i) => (
+                <div
+                  key={i}
+                  className="relative min-w-[70vw] md:min-w-[320px] h-[45vw] md:h-[320px] rounded-2xl overflow-hidden border border-pink-200"
+                  style={{ maxWidth: 420, maxHeight: 340 }}
+                >
+                  <Image
+                    src={img}
+                    alt={`${modal.cor} Pomélia - Foto ${i + 1}`}
+                    fill
+                    className="object-cover"
+                    priority={i === 0}
+                  />
+                </div>
+              ))}
+            </div>
+            <WhatsappButton
+              message={`Olá! Vi o filhote ${modal.cor} ${modal.sexo} por ${modal.valor} no site Pomélia. Quero reservar!`}
+              className="w-full mt-3"
+            />
+          </div>
+          <div
+            className="fixed inset-0"
+            onClick={() => setModal(null)}
+            aria-label="Fechar galeria"
+          />
+        </div>
+      )}
     </section>
   );
 }

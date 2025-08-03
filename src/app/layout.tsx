@@ -1,20 +1,36 @@
-import '../styles/globals.css'
-export const metadata = {
-  title: "Spitz Alemão Anão Premium | Pomélia Bragança Paulista",
-  description: "Filhotes Spitz Alemão Anão (Lulu da Pomerânia) em Bragança Paulista. CBKC, entrega nacional, saúde impecável, suporte vitalício. Viva a experiência Pomélia!",
-  openGraph: {
-    title: "Spitz Alemão Anão Premium | Pomélia",
-    description: "Filhotes exclusivos com pedigree, saúde impecável e entrega nacional.",
-    images: ["/og-image.jpg"], // imagem og otimizada
-  },
-  keywords: ["spitz alemão anão", "lulu da pomerania", "filhotes", "bragança paulista", "CBKC", "premium"],
-  robots: "index,follow",
-};
+import type { ReactNode } from "react";
+import "../styles/globals.css";
+import { Inter } from "next/font/google";
+import TrackingPixels from "@/app/components/TrackingPixels";
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+const inter = Inter({ subsets: ["latin"] });
+
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="pt">
-      <body className="min-h-screen flex flex-col bg-yellow-50 text-brown-800">
+    <html lang="pt-BR">
+      <head>
+        <link rel="canonical" href="https://pomelia.com.br/" />
+        {/* JSON-LD Organization */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: `
+              {
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                "name": "Pomélia",
+                "url": "https://pomelia.com.br",
+                "logo": "https://pomelia.com.br/logo.png",
+                "sameAs": [
+                  "https://www.instagram.com/pomelia.oficial/"
+                ]
+              }
+            `,
+          }}
+        />
+      </head>
+      <body className={inter.className}>
+        <TrackingPixels />
         {children}
       </body>
     </html>

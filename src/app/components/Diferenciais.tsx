@@ -1,34 +1,35 @@
-"use client";
-import { motion } from "framer-motion";
-
-const difs = [
-  "Filhotes 100% Spitz Alemão Anão, padrão CBKC",
-  "Socialização e entrega em todo Brasil",
-  "Criatório familiar, sem canil comercial",
-  "Pedigree, vacinas e laudo de saúde",
-  "Suporte vitalício ao tutor",
-  "Atendimento personalizado para cada família",
-  "Transparência, compromisso e ética",
-  "Mais de 5.000 avaliações reais",
-];
+// src/app/components/Diferenciais.tsx
 
 export default function Diferenciais() {
   return (
-    <section className="bg-yellow-100 py-8">
-      <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-        {difs.map((dif, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, x: i % 2 === 0 ? -30 : 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: i * 0.07 }}
-            className="flex items-start mb-3 text-lg"
-          >
-            <span className="mr-2 text-yellow-700 text-xl font-bold">✓</span>
-            {dif}
-          </motion.div>
-        ))}
+    <section className="bg-gradient-to-b from-[#FFF9ED] to-[#F5F1EB] py-16 px-4 border-t border-primary/10">
+      <div className="max-w-5xl mx-auto">
+        <h2 className="text-3xl md:text-4xl font-bold text-primary text-center mb-10">
+          Por que escolher a Pomélia?
+        </h2>
+        <div className="grid md:grid-cols-3 gap-8">
+          <div className="flex flex-col items-center text-center bg-white p-6 rounded-3xl shadow-xl border border-primary/10">
+            <img src="/icons/garantia.svg" alt="Garantia e Saúde" className="w-14 h-14 mb-4" />
+            <h3 className="text-xl font-bold text-primary mb-2">Saúde e Garantia</h3>
+            <p className="text-gray-700 text-base">
+              Filhotes com pedigree CBKC, vacinas em dia, atestado veterinário, garantia de saúde e suporte vitalício.
+            </p>
+          </div>
+          <div className="flex flex-col items-center text-center bg-white p-6 rounded-3xl shadow-xl border border-primary/10">
+            <img src="/icons/premium.svg" alt="Exclusividade Premium" className="w-14 h-14 mb-4" />
+            <h3 className="text-xl font-bold text-primary mb-2">Exclusividade Premium</h3>
+            <p className="text-gray-700 text-base">
+              Criatório familiar, seleção genética, acompanhamento personalizado e entrega nacional com transporte VIP.
+            </p>
+          </div>
+          <div className="flex flex-col items-center text-center bg-white p-6 rounded-3xl shadow-xl border border-primary/10">
+            <img src="/icons/suporte.svg" alt="Suporte completo" className="w-14 h-14 mb-4" />
+            <h3 className="text-xl font-bold text-primary mb-2">Atendimento e Suporte</h3>
+            <p className="text-gray-700 text-base">
+              Atendimento humanizado, acompanhamento pós-venda e suporte no WhatsApp em todas as etapas.
+            </p>
+          </div>
+        </div>
       </div>
     </section>
   );

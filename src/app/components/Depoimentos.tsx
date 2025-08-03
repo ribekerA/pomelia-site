@@ -1,152 +1,132 @@
+// src/app/components/Depoimentos.tsx
+
 "use client";
-import Image from "next/image";
-import { useEffect, useState } from "react";
-import { FaCheckCircle } from "react-icons/fa";
+import { useEffect, useRef, useState } from "react";
 
 const depoimentos = [
   {
-    nome: "Ana Paula",
-    texto:
-      "Nunca fui tão bem atendida! Meu Spitz chegou super saudável, sociável e virou o xodó da casa. Recomendo de olhos fechados!",
-    foto: "/images/depoimentos/ana.jpeg",
+    img: "/images/clientes/cliente1.jpg",
+    texto: "A Pomélia mudou nossa rotina! O filhote chegou super saudável, cheio de energia e carinho. Atendimento nota 1000!",
+    nome: "Patrícia – Campinas/SP"
   },
   {
-    nome: "João Marcos",
-    texto:
-      "A Pomélia me deu todo o suporte desde o primeiro contato até depois da entrega. Filhote lindo, só gratidão!",
-    foto: "/images/depoimentos/joao.jpeg",
+    img: "/images/clientes/cliente2.jpg",
+    texto: "Atendimento humano, entrega rápida e muito carinho em cada detalhe. Recomendo para quem quer exclusividade.",
+    nome: "André – São Paulo/SP"
   },
   {
-    nome: "Paula Souza",
-    texto:
-      "Transparência e carinho em cada detalhe. Meu Lulu é a alegria da família. Muito obrigada!",
-    foto: "/images/depoimentos/paula.jpeg",
+    img: "/images/clientes/cliente3.jpg",
+    texto: "Tive suporte desde o início, até depois da entrega. Meu Spitz está lindo, saudável e super adaptado. Gratidão!",
+    nome: "Juliana – Sorocaba/SP"
   },
   {
-    nome: "Camila Dias",
-    texto:
-      "Adorei a experiência! Equipe atenciosa e filhote saudável. Recomendo para todos que buscam excelência.",
-    foto: "/images/depoimentos/camila.jpeg",
+    img: "/images/clientes/cliente4.jpg",
+    texto: "O processo foi todo transparente, recebi fotos e vídeos diários. Meu Lulu é um verdadeiro sonho.",
+    nome: "Renata – Belo Horizonte/MG"
   },
   {
-    nome: "Roberto Lima",
-    texto:
-      "O Spitz chegou rápido, limpo e já vacinado. Atendimento impecável. Parabéns Pomélia!",
-    foto: "/images/depoimentos/roberto.jpeg",
+    img: "/images/clientes/cliente5.jpg",
+    texto: "Achei que nunca teria um Spitz premium. Com a Pomélia realizei meu sonho, recomendo de olhos fechados.",
+    nome: "Leonardo – Rio de Janeiro/RJ"
   },
   {
-    nome: "Marina Santos",
-    texto:
-      "Meu sonho realizado! Só tenho elogios para a Pomélia. Apoio em cada etapa.",
-    foto: "/images/depoimentos/marina.jpeg",
+    img: "/images/clientes/cliente6.jpg",
+    texto: "A equipe é sensacional! Me deram segurança, suporte e o filhote já chegou socializado.",
+    nome: "Camila – Ribeirão Preto/SP"
   },
   {
-    nome: "Lucas Vieira",
-    texto:
-      "Minha família ficou encantada com o filhote. Atendimento humanizado e de confiança.",
-    foto: "/images/depoimentos/lucas.jpeg",
+    img: "/images/clientes/cliente7.jpg",
+    texto: "Só tenho elogios! Contrato digital, pedigree, fotos dos pais... Muito melhor do que esperava.",
+    nome: "Amanda – Santos/SP"
   },
   {
-    nome: "Fernanda Prado",
-    texto:
-      "Escolhi a Pomélia pela reputação e fiquei surpresa com tanta dedicação e carinho.",
-    foto: "/images/depoimentos/fernanda.jpeg",
+    img: "/images/clientes/cliente8.jpg",
+    texto: "Vale cada centavo. Atendimento diferenciado e entrega com todo o suporte pós-venda.",
+    nome: "Rodrigo – Brasília/DF"
   },
   {
-    nome: "Ricardo S.",
-    texto:
-      "Acompanhamento pós-venda nota 10! Sempre disponíveis para dúvidas.",
-    foto: "/images/depoimentos/ricardo.jpeg",
+    img: "/images/clientes/cliente9.jpg",
+    texto: "A Pomélia superou minhas expectativas. Fui muito bem tratada e recebi dicas valiosas!",
+    nome: "Tatiane – Salvador/BA"
   },
   {
-    nome: "Lívia Costa",
-    texto:
-      "Recomendo de olhos fechados. Filhote feliz, sociável e muito fofo!",
-    foto: "/images/depoimentos/livia.jpeg",
+    img: "/images/clientes/cliente10.jpg",
+    texto: "Recomendo de olhos fechados. Responsabilidade, carinho e confiança definem.",
+    nome: "Rafael – Curitiba/PR"
   },
   {
-    nome: "Bruno Mendonça",
-    texto:
-      "Serviço diferenciado, transparente e filhote entregue com pedigree e vacinas.",
-    foto: "/images/depoimentos/bruno.jpeg",
+    img: "/images/clientes/cliente11.jpg",
+    texto: "Recebi acompanhamento em todo o processo, fiquei super segura na compra!",
+    nome: "Gabriela – Florianópolis/SC"
   },
   {
-    nome: "Patrícia G.",
-    texto:
-      "O Spitz Pomélia mudou nosso lar. Atendimento exemplar do começo ao fim.",
-    foto: "/images/depoimentos/patricia.jpeg",
+    img: "/images/clientes/cliente12.jpg",
+    texto: "O filhote chegou perfeito e a família está apaixonada. Pomélia é referência!",
+    nome: "Bianca – Porto Alegre/RS"
   },
 ];
 
 export default function Depoimentos() {
-  // Carrossel automático
-  const [current, setCurrent] = useState(0);
-  const length = depoimentos.length;
+  const [atual, setAtual] = useState(0);
+  const intervalo = useRef<NodeJS.Timeout | null>(null);
 
-  // Responsividade: 1 card no mobile, 2 no tablet, 3+ no desktop
-  const [cardsPerView, setCardsPerView] = useState(3);
+  // Define quantos depoimentos por tela
+  function getQtdPorTela() {
+    if (typeof window === "undefined") return 1;
+    if (window.innerWidth >= 1024) return 3;
+    if (window.innerWidth >= 640) return 2;
+    return 1;
+  }
+
+  const [porTela, setPorTela] = useState(getQtdPorTela());
 
   useEffect(() => {
-    // Ajusta quantos cards aparecem de acordo com o tamanho da tela
-    function handleResize() {
-      if (window.innerWidth < 640) setCardsPerView(1);
-      else if (window.innerWidth < 1024) setCardsPerView(2);
-      else setCardsPerView(3);
-    }
-    handleResize();
+    const handleResize = () => setPorTela(getQtdPorTela());
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Avança o carrossel automaticamente a cada 4 segundos
+  // Auto-scroll
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrent((prev) => (prev + cardsPerView) % length);
-    }, 4000);
-    return () => clearInterval(timer);
-  }, [cardsPerView, length]);
+    intervalo.current = setInterval(() => {
+      setAtual(a => (a + porTela) % depoimentos.length);
+    }, 5000);
+    return () => intervalo.current && clearInterval(intervalo.current);
+  }, [porTela]);
 
-  // Gera os cards visíveis no carrossel
-  const visibleCards = [];
-  for (let i = 0; i < cardsPerView; i++) {
-    const idx = (current + i) % length;
-    visibleCards.push(
-      <div
-        key={idx}
-        className="bg-white shadow-lg rounded-3xl overflow-hidden max-w-xs w-full flex flex-col border-2 border-yellow-100"
-        style={{ minWidth: "280px" }}
-      >
-        <div className="relative w-full h-56 sm:h-64 md:h-72">
-          <Image
-            src={depoimentos[idx].foto}
-            alt={depoimentos[idx].nome}
-            fill
-            className="object-cover w-full h-full"
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            priority={i === 0}
-          />
-          {/* Badge verificado */}
-          <span className="absolute top-4 right-4 bg-white rounded-full p-1 shadow">
-            <FaCheckCircle className="text-green-500 text-2xl" />
-          </span>
-        </div>
-        <div className="p-6 flex flex-col flex-1">
-          <h3 className="text-2xl font-bold text-yellow-900 mb-2">
-            {depoimentos[idx].nome}
-          </h3>
-          <p className="text-lg text-neutral-700">{depoimentos[idx].texto}</p>
-        </div>
-      </div>
-    );
+  // Exibe só os depoimentos visíveis
+  const visiveis = [];
+  for (let i = 0; i < porTela; i++) {
+    visiveis.push(depoimentos[(atual + i) % depoimentos.length]);
   }
 
   return (
-    <section className="py-12 px-2 sm:px-6 md:px-10 lg:px-24 bg-[#fffde6] flex flex-col items-center">
-      <h2 className="text-4xl md:text-5xl font-bold text-neutral-900 mb-10 text-center">
-        O que dizem as famílias Pomélia
+    <section className="py-16 px-4 bg-[#F5F1EB] border-t border-primary/10">
+      <h2 className="text-3xl md:text-4xl font-bold text-primary text-center mb-8">
+        O que dizem nossos clientes
       </h2>
-      <div className="w-full flex justify-center gap-6">
-        {visibleCards}
+      <div className="flex justify-center gap-6 overflow-hidden max-w-5xl mx-auto">
+        {visiveis.map((dep, idx) => (
+          <div
+            key={idx}
+            className="w-full max-w-xs flex-shrink-0 bg-white rounded-3xl shadow-xl border border-primary/10 overflow-hidden transition-transform duration-700"
+            style={{ minHeight: 370 }}
+          >
+            <img
+              src={dep.img}
+              alt={`Depoimento de ${dep.nome}`}
+              className="w-full h-56 object-cover object-center"
+              loading="lazy"
+            />
+            <div className="p-6 flex flex-col h-[120px]">
+              <p className="text-gray-800 text-base italic mb-4">&quot;{dep.texto}&quot;</p>
+              <span className="font-bold text-primary text-sm mt-auto">{dep.nome}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="text-center text-sm text-gray-400 mt-6">
+        Mais de 500 famílias satisfeitas em todo Brasil.
       </div>
     </section>
   );

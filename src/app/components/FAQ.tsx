@@ -1,53 +1,71 @@
+// src/app/components/Faq.tsx
+
 "use client";
+
 import { useState } from "react";
 
 const faqs = [
   {
-    q: "Qual o valor de um filhote de Spitz Alemão Anão?",
-    a: "Os filhotes Pomélia variam de R$ 6.000 a R$ 10.000, conforme pedigree, cor e exclusividade. Consulte disponibilidade pelo WhatsApp."
+    question: "A Pomélia é canil ou criatório?",
+    answer:
+      "Somos um criatório familiar focado em exclusividade, bem-estar e acompanhamento individual dos filhotes. Não trabalhamos como canil comercial.",
   },
   {
-    q: "Vocês entregam em todo o Brasil?",
-    a: "Sim, enviamos filhotes para todo o Brasil com transporte especializado e seguro, priorizando o bem-estar do filhote."
+    question: "Como funciona a entrega dos filhotes?",
+    answer:
+      "Entregamos em todo o Brasil com transporte especializado e seguro. O filhote vai até você com acompanhamento e garantia total.",
   },
   {
-    q: "O Spitz vem com pedigree e vacinas?",
-    a: "Todos os nossos filhotes são entregues com pedigree CBKC, vacinas em dia, vermifugação e laudo de saúde assinado por veterinário."
+    question: "Os filhotes têm pedigree e vacinas?",
+    answer:
+      "Sim! Todos filhotes Pomélia têm pedigree CBKC, vacinas em dia, vermifugados, microchipados e com atestado veterinário.",
   },
   {
-    q: "Qual a garantia de saúde?",
-    a: "Garantimos filhotes saudáveis, socializados e com acompanhamento pós-venda. Caso haja qualquer intercorrência, oferecemos suporte imediato."
+    question: "Qual o suporte após a compra?",
+    answer:
+      "Você recebe suporte vitalício no WhatsApp e acompanhamento pós-venda para todas as dúvidas sobre saúde, adaptação e cuidados.",
   },
   {
-    q: "Posso visitar antes de fechar?",
-    a: "Atendemos visitas agendadas em Bragança Paulista, respeitando o bem-estar dos animais. Agende pelo WhatsApp."
-  }
+    question: "Posso visitar ou conhecer os pais dos filhotes?",
+    answer:
+      "Por questões de biossegurança, priorizamos atendimento online, mas enviamos fotos, vídeos e fazemos videochamadas dos filhotes e dos pais.",
+  },
+  {
+    question: "Como faço a reserva do meu filhote?",
+    answer:
+      "Basta preencher o formulário ou clicar no WhatsApp para atendimento. As reservas são realizadas por ordem de contato e análise do perfil do tutor.",
+  },
 ];
 
-export default function FAQ() {
+export default function Faq() {
   const [open, setOpen] = useState<number | null>(null);
 
   return (
-    <section className="bg-yellow-50 py-10">
-      <h2 className="text-3xl font-bold text-center mb-8 text-gray-900">
-        Perguntas Frequentes sobre Spitz Alemão Pomélia
-      </h2>
-      <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-        {faqs.map((f, i) => (
-          <div
-            key={i}
-            className={`bg-white rounded-2xl shadow p-5 mb-2 border border-yellow-100 cursor-pointer transition-all duration-300 ${open === i ? 'ring-2 ring-yellow-600' : ''}`}
-            onClick={() => setOpen(open === i ? null : i)}
-          >
-            <div className="font-semibold mb-1 flex items-center">
-              <span className="mr-2">{open === i ? "▼" : "►"}</span> {f.q}
+    <section className="max-w-3xl mx-auto py-16 px-4">
+      <h2 className="text-3xl md:text-4xl font-bold text-primary text-center mb-10">Perguntas Frequentes</h2>
+      <ul className="space-y-4">
+        {faqs.map((faq, i) => (
+          <li key={i} className="bg-white rounded-2xl shadow-lg border border-primary/10 transition-all">
+            <button
+              className="w-full flex items-center justify-between px-6 py-4 text-lg md:text-xl font-semibold text-left text-primary focus:outline-none"
+              onClick={() => setOpen(open === i ? null : i)}
+              aria-expanded={open === i}
+            >
+              {faq.question}
+              <span className={`ml-2 transform transition-transform ${open === i ? "rotate-90" : ""}`}>
+                ▶
+              </span>
+            </button>
+            <div
+              className={`overflow-hidden transition-all px-6 ${
+                open === i ? "max-h-40 py-2" : "max-h-0"
+              }`}
+            >
+              <p className="text-gray-700 text-base">{faq.answer}</p>
             </div>
-            {open === i && (
-              <div className="text-gray-700 mt-2">{f.a}</div>
-            )}
-          </div>
+          </li>
         ))}
-      </div>
+      </ul>
     </section>
   );
 }

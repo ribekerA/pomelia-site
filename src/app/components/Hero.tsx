@@ -1,35 +1,35 @@
-"use client";
-import { motion } from "framer-motion";
+// src/app/components/Hero.tsx
+import Image from "next/image";
 import WhatsappButton from "./WhatsAppButton";
 
 export default function Hero() {
   return (
-    <section className="bg-gradient-to-b from-yellow-50 to-yellow-100 py-20 md:py-32 text-center">
-      <motion.div
-        initial={{ opacity: 0, y: -40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7 }}
-        className="flex flex-col items-center"
-      >
-        <img
-          src="/images/spitz-hero.png"
-          alt="Filhote Spitz Alemão Anão Pomélia premium"
-          className="w-52 h-52 object-cover rounded-full shadow-2xl border-4 border-yellow-200 mb-7"
-          loading="eager"
-          fetchPriority="high"
-        />
-        <h1 className="text-4xl md:text-6xl font-extrabold mb-6 leading-tight text-gray-900">
-          Filhotes Spitz Alemão Anão <br />
-          Lulu da Pomerânia
+    <section className="w-full bg-[#FFF9ED] py-12 md:py-20 px-4 flex flex-col md:flex-row items-center gap-8 md:gap-12 rounded-3xl shadow-xl mt-8 mb-12">
+      <div className="flex-1 flex flex-col justify-center items-start max-w-xl mx-auto md:mx-0">
+        <h1 className="text-4xl md:text-5xl font-extrabold text-[#3A2C1C] leading-tight mb-6 drop-shadow-xl">
+          Spitz Alemão Anão <span className="text-pink-700">&</span> Lulu da Pomerânia Premium em SP
         </h1>
-        <p className="text-lg md:text-2xl mb-8 text-gray-800 font-medium max-w-2xl mx-auto">
-          Conheça o verdadeiro significado de exclusividade, carinho e suporte vitalício. Seu filhote Pomélia vai transformar sua rotina e sua vida.
+        <p className="text-lg md:text-2xl text-[#664D36] mb-8 font-medium drop-shadow">
+          O melhor da raça, entrega nacional, acompanhamento profissional e suporte vitalício. Seu novo filhote com saúde, pedigree e carinho.
         </p>
-        <WhatsappButton message="Olá! Quero saber mais sobre os filhotes Spitz Alemão disponíveis na Pomélia." />
-        <div className="mt-10 text-base md:text-lg text-gray-500 italic">
-          Muitas famílias Pomélia em todo o Brasil | Entrega nacional premium
+        <WhatsappButton
+          message="Olá! Quero garantir meu filhote Spitz/Lulu com padrão Pomélia. Pode me passar as opções disponíveis?"
+          className="animate-bounce"
+        />
+        <div className="mt-5 text-base md:text-lg text-gray-500 italic">
+          Filhotes com socialização, garantia de saúde, entrega segura e atendimento premiado.
         </div>
-      </motion.div>
+      </div>
+      <div className="flex-1 flex justify-center md:justify-end items-center">
+        <Image
+          src="/images/spitz-hero.jpg"
+          width={500}
+          height={500}
+          priority
+          alt="Filhote de Spitz Alemão Anão Lulu da Pomerânia Pomélia"
+          className="rounded-3xl shadow-2xl object-cover w-full max-w-[350px] h-[340px] md:h-[410px] transition-transform hover:scale-105 duration-300"
+        />
+      </div>
     </section>
   );
 }

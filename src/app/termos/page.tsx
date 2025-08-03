@@ -1,32 +1,35 @@
+// src/app/termos/page.tsx
+
 export const metadata = {
-  title: "Termos de Uso – Pomélia",
-  description: "Saiba as condições e responsabilidades do uso do site Pomélia. Compromisso, clareza e confiança para você adquirir seu Spitz Alemão Anão.",
+  title: "Termos de Uso | Pomélia",
+  description: "Termos e condições para navegação e compra de filhotes Spitz Alemão Anão na Pomélia. Transparência e segurança.",
 };
 
-export default function Termos() {
+export default function TermosPage() {
   return (
-    <main className="max-w-2xl mx-auto py-10 px-4 bg-white rounded-2xl shadow-xl mt-8 mb-8">
-      <h1 className="text-3xl font-bold mb-4">Termos de Uso</h1>
-      <p className="mb-3">
-        Ao acessar o site <strong>Pomélia</strong>, você concorda com os termos e condições aqui descritos.
+    <main className="max-w-2xl mx-auto px-4 py-10">
+      <h1 className="text-2xl font-bold mb-4 text-primary">Termos de Uso</h1>
+      <p className="mb-4 text-gray-700">
+        Ao acessar e utilizar o site Pomélia, você concorda com os seguintes termos:
       </p>
-      <ul className="list-disc pl-5 mb-4">
-        <li>
-          Todas as informações e imagens são protegidas por direitos autorais. Reprodução ou uso não autorizado é proibido.
+      <ul className="list-disc pl-6 mb-4 text-gray-700">
+        <li className="mb-2">
+          <strong>Compra responsável:</strong> A venda dos filhotes é feita após contato e avaliação de perfil do tutor, visando sempre o bem-estar animal.
         </li>
-        <li>
-          Os valores e disponibilidade dos filhotes podem variar sem aviso prévio.
+        <li className="mb-2">
+          <strong>Propriedade intelectual:</strong> Todo o conteúdo do site, incluindo imagens, textos e marcas, é protegido por direitos autorais.
         </li>
-        <li>
-          Ao preencher formulários, você autoriza o contato via WhatsApp, telefone ou e-mail.
+        <li className="mb-2">
+          <strong>Limitação de responsabilidade:</strong> Não nos responsabilizamos por decisões do tutor após a entrega do filhote, mas fornecemos suporte e orientação vitalícios.
         </li>
-        <li>
-          Todo o conteúdo é para fins informativos, não substituindo orientação profissional veterinária.
+        <li className="mb-2">
+          <strong>Alterações:</strong> Os termos podem ser atualizados a qualquer momento. Recomenda-se a leitura periódica.
         </li>
       </ul>
-      <p>
-        Em caso de dúvidas, consulte nossa equipe antes de fechar negócio. Compromisso Pomélia: ética, clareza e responsabilidade sempre.
+      <p className="mb-4">
+        Dúvidas? Entre em contato conosco pelo WhatsApp ou pelos canais oficiais.
       </p>
+      <span className="text-xs text-gray-400">Atualizado em {new Date().toLocaleDateString("pt-BR")}</span>
     </main>
   );
 }
